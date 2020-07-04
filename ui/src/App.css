@@ -1,6 +1,7 @@
 .App {
     --background-primary-color: #fff;
     --background-secondary-color: #fafafa;
+    --background-tertiary-color: #eaeaea;
     --primary-accent-color: #4658e5;
     --font-primary-color: #222;
     --form-border-color: #e3e3e3;
@@ -9,8 +10,9 @@
 @media (prefers-color-scheme: dark) {
     .App {
         --background-primary-color: #28282c;
-        --primary-accent-color: #4658e5;
         --background-secondary-color: #1c1c20;
+        --background-tertiary-color: #44444e;
+        --primary-accent-color: #4658e5;
         --font-primary-color: #efeef6;
         --form-border-color: #44444e;
     }
@@ -52,4 +54,23 @@ h3 {
     margin: 15px 0px 5px 0px;
     border-left: 2px solid var(--primary-accent-color);
     padding-left: 5px;
+}
+
+button {
+    height: 20px;
+    padding: 5px 10px;
+    box-sizing: content-box;
+    background: var(--primary-accent-color);
+    color: var(--primary-font-color);
+    border-radius: 50px;
+    outline: none;
+    border: none;
+}
+
+button:disabled {
+    background: var(--secondary-accent-color);
+}
+
+button:hover {
+    cursor: pointer;
 }

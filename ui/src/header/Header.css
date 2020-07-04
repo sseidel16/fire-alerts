@@ -1,0 +1,23 @@
+.HeaderContainer {
+    display: flex;
+    flex-direction: row;
+
+    background-color: var(--background-tertiary-color);
+
+    box-sizing: border-box;
+    height: 100px;
+    padding: 15px;
+
+    align-items: center;
+}
+
+.HeaderContainer img {
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+}
+
+.HeaderContainer p {
+    flex: 100px 1 1;
+    margin: 20px;
+}
