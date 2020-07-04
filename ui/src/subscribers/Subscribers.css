@@ -24,13 +24,17 @@
 .SubscribersTableHeader {
     padding: 10px;
     margin: 0px;
-    flex: 100px 1 1;
+    flex: 1px 1 1;
+    min-width: 1px;
+    overflow: hidden;
 }
 
 .SubscribersTableCell {
     padding: 7px;
     margin: 0px;
-    flex: 100px 1 1;
+    flex: 1px 1 1;
+    min-width: 1px;
+    overflow: hidden;
 
     background-color: var(--background-secondary-color);
 }
