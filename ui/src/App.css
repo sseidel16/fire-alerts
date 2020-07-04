@@ -1,0 +1,55 @@
+.App {
+    --background-primary-color: #fff;
+    --background-secondary-color: #fafafa;
+    --primary-accent-color: #4658e5;
+    --font-primary-color: #222;
+    --form-border-color: #e3e3e3;
+}
+
+@media (prefers-color-scheme: dark) {
+    .App {
+        --background-primary-color: #28282c;
+        --primary-accent-color: #4658e5;
+        --background-secondary-color: #1c1c20;
+        --font-primary-color: #efeef6;
+        --form-border-color: #44444e;
+    }
+}
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: auto;
+    background-color: var(--background-primary-color);
+    color: var(--font-primary-color);
+}
+
+.App {
+    padding: 10px 150px;
+}
+
+@media (max-width:600px) {
+    .App {
+        padding: 10px 10px;
+    }
+}
+
+h2 {
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-size: 26px;
+    color: var(--primary-font-color);
+    margin: 15px 0px;
+    border-bottom: 2px solid var(--primary-accent-color);
+}
+
+h3 {
+    font-weight: 450;
+    letter-spacing: 0px;
+    font-size: 22px;
+    color: var(--primary-font-color);
+    margin: 15px 0px 5px 0px;
+    border-left: 2px solid var(--primary-accent-color);
+    padding-left: 5px;
+}

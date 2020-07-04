@@ -1,0 +1,36 @@
+.SubscribersContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.SubscribersTable {
+    display: flex;
+    flex-direction: column;
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--form-border-color);
+}
+
+.SubscribersTableRow {
+    display: flex;
+    flex-direction: row;
+
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: var(--form-border-color);
+}
+
+.SubscribersTableHeader {
+    padding: 10px;
+    margin: 0px;
+    flex: 100px 1 1;
+}
+
+.SubscribersTableCell {
+    padding: 7px;
+    margin: 0px;
+    flex: 100px 1 1;
+
+    background-color: var(--background-secondary-color);
+}
