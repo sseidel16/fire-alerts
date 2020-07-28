@@ -16,13 +16,16 @@ function Subscribers(props) {
             syncClient.map('+15202010410').then(map => {
                 const pageHandler = subscriberArray => paginator => {
                     paginator.items.forEach(item => {
+                        // This leaks various sids...
                         console.log(item);
 
                         const phone = item.key;
                         const name = item?.value?.name || '';
                         const auth = item?.value?.authorized || '';
-                        const muted = item?.value?.muted || '';
-                        const group_muted = item?.value?.group_muted || '';
+                        // Is there a better way to handle converting a boolean
+                        // to a string while also handling 'undefined'?
+                        const muted = (item?.value?.muted || '').toString();
+                        const group_muted = (item?.value?.group_muted || '').toString();
 
                         subscriberArray.push(
                             { phone, name, auth, muted, group_muted })
