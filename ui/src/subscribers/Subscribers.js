@@ -21,9 +21,11 @@ function Subscribers(props) {
                         const phone = item.key;
                         const name = item?.value?.name || '';
                         const auth = item?.value?.authorized || '';
-                        const muted = false;
+                        const muted = item?.value?.muted || '';
+                        const group_muted = item?.value?.group_muted || '';
 
-                        subscriberArray.push({ phone, name, auth, muted })
+                        subscriberArray.push(
+                            { phone, name, auth, muted, group_muted })
                     });
                     return paginator.hasNextPage ?
                         paginator.nextPage().then(pageHandler(subscriberArray)) :
@@ -40,7 +42,8 @@ function Subscribers(props) {
         { name: 'Phone', key: 'phone' },
         { name: 'Name', key: 'name' },
         { name: 'Auth', key: 'auth' },
-        { name: 'Muted', key: 'muted' }
+        { name: 'Muted', key: 'muted' },
+        { name: 'Group muted', key: 'group_muted'}
     ];
 
     return (
