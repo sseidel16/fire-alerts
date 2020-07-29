@@ -13,9 +13,10 @@ const parseItem = (item, subscriberData) => {
     const phone = item.key;
     const name = item?.value?.name || '';
     const auth = item?.value?.authorized || '';
-    const muted = false;
+    const muted = (item?.value?.muted || '').toString();
+    const group_muted = (item?.value?.group_muted || '').toString();
 
-    subscriberData[key] = { selected, phone, name, auth, muted };
+    subscriberData[key] = { selected, phone, name, auth, muted, group_muted };
 
     return subscriberData;
 };
