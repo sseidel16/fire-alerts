@@ -13,8 +13,8 @@ const parseItem = (item, subscriberData) => {
     const phone = item.key;
     const name = item?.value?.name || '';
     const auth = item?.value?.authorized || '';
-    const muted = (item?.value?.muted || '').toString();
-    const group_muted = (item?.value?.group_muted || '').toString();
+    const muted = !!item?.value?.muted;
+    const group_muted = !!item?.value?.group_muted;
 
     subscriberData[key] = { selected, phone, name, auth, muted, group_muted };
 
@@ -23,7 +23,13 @@ const parseItem = (item, subscriberData) => {
 
 const removeTwilioSubscriber = (key, map) => map.remove(key);
 const setTwilioSubscriber = (key, subscriber, map) =>
-    map.set(key, { name: subscriber.name, phone: subscriber.phone })
+    map.set(key, {
+        name: subscriber.name,
+        phone: subscriber.phone,
+        authorized: subscriber.auth,
+        muted: subscriber.muted,
+        group_muted: subscriber.group_muted
+    })
         .then(item => parseItem(item, {}));
 
 function Subscribers(props) {
