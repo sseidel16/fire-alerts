@@ -3,38 +3,20 @@
     flex-direction: column;
 }
 
-.SubscribersTable {
-    display: flex;
-    flex-direction: column;
-
-    border-width: 2px;
-    border-style: solid;
-    border-color: var(--form-border-color);
-}
-
-.SubscribersTableRow {
+.SubscribersBanner {
     display: flex;
     flex-direction: row;
 
-    border-width: 0px 1px 1px 1px;
-    border-style: solid;
-    border-color: var(--form-border-color);
+    padding: 5px;
 }
 
-.SubscribersTableHeader {
-    padding: 10px;
-    margin: 0px;
-    flex: 1px 1 1;
-    min-width: 1px;
-    overflow: hidden;
+.SubscribersBannerLeft {
+    flex: auto 1 1;
+
+    display: flex;
+    flex-direction: row;
 }
 
-.SubscribersTableCell {
-    padding: 7px;
-    margin: 0px;
-    flex: 1px 1 1;
-    min-width: 1px;
-    overflow: hidden;
-
-    background-color: var(--background-secondary-color);
+.SubscribersBannerRightFixed {
+    flex: auto 0 0;
 }

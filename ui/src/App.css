@@ -1,8 +1,12 @@
 .App {
     --background-primary-color: #fff;
+    --background-primary-color-rgb: 255, 255, 255;
+    --background-primary-color-hover: #f4f3f8;
     --background-secondary-color: #fafafa;
     --background-tertiary-color: #eaeaea;
-    --primary-accent-color: #4658e5;
+    --accent-primary-color: #4658e5;
+    --accent-primary-color-hover: #7d89e6;
+    --accent-primary-color-disabled: #A2ABF2;
     --font-primary-color: #222;
     --form-border-color: #e3e3e3;
 }
@@ -10,9 +14,13 @@
 @media (prefers-color-scheme: dark) {
     .App {
         --background-primary-color: #28282c;
+        --background-primary-color-rgb: 40, 40, 44;
+        --background-primary-color-hover: #4d4d51;
         --background-secondary-color: #1c1c20;
         --background-tertiary-color: #44444e;
-        --primary-accent-color: #4658e5;
+        --accent-primary-color: #4658e5;
+        --accent-primary-color-hover: #7d89e6;
+        --accent-primary-color-disabled: #232C72;
         --font-primary-color: #efeef6;
         --form-border-color: #44444e;
     }
@@ -31,7 +39,7 @@
     padding: 10px 150px;
 }
 
-@media (max-width:600px) {
+@media (max-width:800px) {
     .App {
         padding: 10px 10px;
     }
@@ -41,18 +49,18 @@ h2 {
     font-weight: 500;
     letter-spacing: 0px;
     font-size: 26px;
-    color: var(--primary-font-color);
+    color: var(--font-primary-color);
     margin: 15px 0px;
-    border-bottom: 2px solid var(--primary-accent-color);
+    border-bottom: 2px solid var(--accent-primary-color);
 }
 
 h3 {
     font-weight: 450;
     letter-spacing: 0px;
     font-size: 22px;
-    color: var(--primary-font-color);
+    color: var(--font-primary-color);
     margin: 15px 0px 5px 0px;
-    border-left: 2px solid var(--primary-accent-color);
+    border-left: 2px solid var(--accent-primary-color);
     padding-left: 5px;
 }
 
@@ -60,17 +68,18 @@ button {
     height: 20px;
     padding: 5px 10px;
     box-sizing: content-box;
-    background: var(--primary-accent-color);
-    color: var(--primary-font-color);
+    background: var(--accent-primary-color);
+    color: var(--font-primary-color);
     border-radius: 50px;
     outline: none;
     border: none;
 }
 
 button:disabled {
-    background: var(--secondary-accent-color);
+    background: var(--accent-primary-color-disabled);
 }
 
-button:hover {
+button:enabled:hover {
+    background: var(--accent-primary-color-hover);
     cursor: pointer;
 }

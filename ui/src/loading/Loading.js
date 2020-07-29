@@ -9,7 +9,7 @@ function Loading(props) {
     return (
         <div className='LoadingContainer'>
             <div className='LoadingSpinner' />
-            <p className='LoadingText'>{message}</p>
+            {message ? <p className='LoadingText'>{message}</p> : null}
         </div>
     )
 }

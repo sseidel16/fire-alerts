@@ -1,0 +1,38 @@
+.SubscribersTableContainer {
+    display: flex;
+    flex-direction: column;
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--form-border-color);
+}
+
+.SubscribersTableRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: var(--form-border-color);
+}
+
+.SubscribersTableHeader {
+    padding: 2px 10px;
+    margin: 8px 0px;
+    flex: 1px 1 1;
+    min-width: 1px;
+    overflow: hidden;
+}
+
+.SubscribersTableCell {
+    padding: 7px;
+    margin: 0px;
+    flex: 1px 1 1;
+    min-width: 1px;
+    overflow: hidden;
+
+    align-self: stretch;
+
+    background-color: var(--background-secondary-color);
+}

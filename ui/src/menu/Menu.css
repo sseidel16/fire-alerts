@@ -1,0 +1,34 @@
+.MenuContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.MenuFloatingParent {
+    position: relative;
+    height: 0px;
+}
+
+.MenuFloatingContainer {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    pointer-events: none;
+    opacity: 0;
+
+    background-color: rgba(var(--background-primary-color-rgb), 0.8);
+
+    transition: opacity 200ms;
+}
+
+.MenuFloatingContainerExpanded {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.MenuFloatingContainer button {
+    margin-top: 5px;
+    word-wrap: unset;
+}

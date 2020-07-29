@@ -14,4 +14,26 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+// uncomment next line to call twilio_auth locally during testing
+// firebase.functions().useFunctionsEmulator('http://localhost:5001');
+
+/*
+// mock firebase interactions
+const firebase = {
+    auth: () => ({
+        onAuthStateChanged: setUser => setUser({
+            email: 'admin@localhost:3000',
+            photoURL: 'http://localhost:3000/favicon.ico'
+        }),
+        signOut: () => alert('Sign out unsupported in testing')
+    }),
+    functions: () => ({
+        httpsCallable: name => request => {
+            if (name === 'twilio_auth') return Promise.resolve({ data: { jwt: 'jwt_string' } });
+            else return Promise.reject(new Error(`Function not found: ${name}`));
+        }
+    })
+};
+*/
+
 export default firebase;

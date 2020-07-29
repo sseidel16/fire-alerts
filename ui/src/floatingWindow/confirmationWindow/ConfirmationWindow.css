@@ -1,0 +1,8 @@
+.ConfirmationWindowContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.ConfirmationWindowContainer button {
+    margin: 5px 0px;
+}

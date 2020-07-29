@@ -1,0 +1,35 @@
+.SelectorContainer {
+    width: 15px;
+    height: 15px;
+
+    margin: 5px 10px;
+
+    box-sizing: border-box;
+
+    border: 1px solid var(--font-primary-color);
+
+    cursor: pointer;
+}
+
+.SelectorCenter {
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    border: 2px solid var(--background-primary-color);
+}
+
+.SelectorCenterUnselected:hover {
+    background-color: var(--background-primary-color-hover);
+}
+
+.SelectorCenterSelected {
+    background-color: var(--accent-primary-color);
+}
+
+.SelectorCenterPartial {
+    border: 4px solid var(--background-primary-color);
+
+    background-color: var(--accent-primary-color);
+}
