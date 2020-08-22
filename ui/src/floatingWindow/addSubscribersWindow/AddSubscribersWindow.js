@@ -25,8 +25,12 @@ function AddSubscribersWindow(props) {
             if (match) {
                 const phone = `+${match[1] || 1}${match[2]}${match[3]}${match[4]}`;
                 const name = match[5];
+                const auth = 'self';
+                const muted = false;
+                const group_muted = false;
+
                 const key = phone;
-                newSubscribersObj[key] = { phone, name };
+                newSubscribersObj[key] = { phone, name, auth, muted, group_muted };
             } else break;
         }
 
@@ -40,7 +44,11 @@ function AddSubscribersWindow(props) {
             <div className='AddSubscribersWindowContainer'>
                 <h3>Add Subscribers</h3>
                 {stage === ADD_STAGE_INPUT ? (
-                    <textarea onChange={event => setTextValue(event.target.value)} value={textValue} />
+                    <textarea
+                        placeholder={'1 234 567 8901 "FirstLast"\n1 123 456 7890 "First_Last"'}
+                        onChange={event => setTextValue(event.target.value)}
+                        value={textValue}
+                    />
                 ) : null}
                 {stage === ADD_STAGE_CONFIRM ? (
                     <div className='AddSubscribersWindowConfirmTable'>
