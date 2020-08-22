@@ -9,7 +9,8 @@
     "firebase": "^7.15.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
+    "rxjs": "^6.6.2",
     "twilio-sync": "^0.12.2"
   },
   "scripts": {
