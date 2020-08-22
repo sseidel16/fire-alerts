@@ -6,6 +6,8 @@ import SubscribersTable from './subscribersTable/SubscribersTable';
 import ConfirmationWindow from '../floatingWindow/confirmationWindow/ConfirmationWindow';
 import LoadingWindow from '../floatingWindow/loadingWindow/LoadingWindow';
 import AddSubscribersWindow from '../floatingWindow/addSubscribersWindow/AddSubscribersWindow';
+import { from, defer, merge } from 'rxjs';
+import { bufferCount, concatMap, map } from 'rxjs/operators';
 
 const parseItem = (item, subscriberData) => {
     const key = item.key;
@@ -22,6 +24,8 @@ const parseItem = (item, subscriberData) => {
 };
 
 const removeTwilioSubscriber = (key, map) => map.remove(key);
+
+// returns Promise<{ [key]: {subscriber} }>
 const setTwilioSubscriber = (key, subscriber, map) =>
     map.set(key, {
         name: subscriber.name,
@@ -31,6 +35,15 @@ const setTwilioSubscriber = (key, subscriber, map) =>
         group_muted: subscriber.group_muted
     })
         .then(item => parseItem(item, {}));
+
+const bufferPromises = promiseFactories =>
+    from(promiseFactories)
+        .pipe(
+            map(defer),
+            bufferCount(5),
+            concatMap(subArray => merge(...subArray))
+        )
+        .toPromise();
 
 function Subscribers(props) {
     const {
@@ -106,43 +119,56 @@ function Subscribers(props) {
         {
             name: 'Mute Selected',
             actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to mute', 'Mute', subscribers => {
-                // call mute API
-                return Promise.all(
+                return bufferPromises(
                     Object.keys(subscribers).map(k => {
-                        const subscriber = subscribers[k];
-                        subscriber.muted = true;
-                        return setTwilioSubscriber(k, subscriber, map)
+                        const newSubscriber = Object.assign({}, subscribers[k], { muted: true });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
                     })
-                )
-                    .then(arr => Object.assign(...arr))
-                    .then(setSubscribers);
+                );
             })
         },
         {
             name: 'Unmute Selected',
             actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to unmute', 'Unmute', subscribers => {
-                // call unmute API
-                return Promise.all(
+                return bufferPromises(
                     Object.keys(subscribers).map(k => {
-                        const subscriber = subscribers[k];
-                        subscriber.muted = false;
-                        return setTwilioSubscriber(k, subscriber, map)
+                        const newSubscriber = Object.assign({}, subscribers[k], { muted: false });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
                     })
-                )
-                    .then(arr => Object.assign(...arr))
-                    .then(setSubscribers);
+                );
+            })
+        },
+        {
+            name: 'Group Mute Selected',
+            actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to group mute', 'Group Mute', subscribers => {
+                return bufferPromises(
+                    Object.keys(subscribers).map(k => {
+                        const newSubscriber = Object.assign({}, subscribers[k], { group_muted: true });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
+                    })
+                );
+            })
+        },
+        {
+            name: 'Group Unmute Selected',
+            actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to group unmute', 'Group Unmute', subscribers => {
+                return bufferPromises(
+                    Object.keys(subscribers).map(k => {
+                        const newSubscriber = Object.assign({}, subscribers[k], { group_muted: false });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
+                    })
+                );
             })
         },
         {
             name: 'Remove Selected',
             actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to remove', 'Remove', subscribers => {
                 // call remove API
-                return Promise.all(
+                return bufferPromises(
                     Object.keys(subscribers).map(k => {
-                        return removeTwilioSubscriber(k, map).then(() => k)
+                        return () => removeTwilioSubscriber(k, map).then(() => removeSubscribers([k]));
                     })
-                )
-                    .then(removeSubscribers);
+                );
             })
         },
     ];
@@ -156,14 +182,12 @@ function Subscribers(props) {
                     addHandler={newSubscribers => confirmedBulkActionHandler('Are you sure you would like to add', 'Add', subscribers => {
                         console.log(subscribers);
                         // call add API
-                        return Promise.all(
+                        return bufferPromises(
                             Object.keys(subscribers).map(k => {
                                 const subscriber = subscribers[k];
-                                return setTwilioSubscriber(k, subscriber, map)
+                                return () => setTwilioSubscriber(k, subscriber, map).then(setSubscribers);
                             })
-                        )
-                            .then(arr => Object.assign(...arr))
-                            .then(setSubscribers);
+                        );
                     }, newSubscribers)}
                 />
             )
