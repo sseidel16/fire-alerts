@@ -36,17 +36,21 @@ function SubscribersTable(props) {
                 <h3 key={'name'} className='SubscribersTableHeader'>Name</h3>
                 <h3 key={'auth'} className='SubscribersTableHeader'>Auth</h3>
             </div>
-            {Object.keys(subscriberData).map(k => (
-                <div key={k} className='SubscribersTableRow'>
+            {Object.keys(subscriberData).map(k => {
+                const { selected, name, phone, auth, muted, group_muted } = subscriberData[k];
+
+                const nameStyles = ['SubscribersTableCell'];
+                if (group_muted) nameStyles.push('SubscribersTableCellGroupMuted');
+                return (<div key={k} className='SubscribersTableRow'>
                     <Selector
-                        state={subscriberData[k].selected ? STATE_SELECTED : STATE_UNSELECTED}
+                        state={selected ? STATE_SELECTED : STATE_UNSELECTED}
                         stateHandler={newState => setSelected([k], newState === STATE_SELECTED)}
                     />
-                    <p key={'name'} className='SubscribersTableCell'>{(subscriberData[k].muted ? '🔇' : '') + subscriberData[k].name}</p>
-                    <p key={'phone'} className='SubscribersTableCell'>{subscriberData[k].phone}</p>
-                    <p key={'auth'} className='SubscribersTableCell'>{subscriberData[k].auth}</p>
-                </div>
-            ))}
+                    <p key={'name'} className={nameStyles.join(' ')}>{(muted ? '🔇' : '') + name}</p>
+                    <p key={'phone'} className='SubscribersTableCell'>{phone}</p>
+                    <p key={'auth'} className='SubscribersTableCell'>{auth}</p>
+                </div>);
+            })}
         </div>
     );
 }

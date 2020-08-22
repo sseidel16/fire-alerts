@@ -36,3 +36,7 @@
 
     background-color: var(--background-secondary-color);
 }
+
+.SubscribersTableCellGroupMuted {
+    text-decoration: line-through;
+}
