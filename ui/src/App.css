@@ -7,6 +7,7 @@
     --accent-primary-color: #4658e5;
     --accent-primary-color-hover: #7d89e6;
     --accent-primary-color-disabled: #A2ABF2;
+    --accent-primary-color-contrast: #efeef6;
     --font-primary-color: #222;
     --form-border-color: #e3e3e3;
 }
@@ -21,6 +22,7 @@
         --accent-primary-color: #4658e5;
         --accent-primary-color-hover: #7d89e6;
         --accent-primary-color-disabled: #232C72;
+        --accent-primary-color-contrast: #efeef6;
         --font-primary-color: #efeef6;
         --form-border-color: #44444e;
     }
@@ -69,7 +71,7 @@ button {
     padding: 5px 10px;
     box-sizing: content-box;
     background: var(--accent-primary-color);
-    color: var(--font-primary-color);
+    color: var(--accent-primary-color-contrast);
     border-radius: 50px;
     outline: none;
     border: none;
