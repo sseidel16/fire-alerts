@@ -5,7 +5,7 @@ import FloatingWindow from '../FloatingWindow';
 const ADD_STAGE_INPUT = 0;
 const ADD_STAGE_CONFIRM = 1;
 
-const subscriberRegex = /(?:\+?(\d{1,3}))? ?\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})\s+"([\w ]+)"/g;
+const subscriberRegex = /(?:\+?(\d{1,3}))? ?\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})\s+[“"”]([\w ]+)[“"”]/g;
 
 function AddSubscribersWindow(props) {
     const {

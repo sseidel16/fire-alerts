@@ -2,13 +2,24 @@ import React, { useMemo } from 'react';
 import './SubscribersTable.css';
 import Selector, { STATE_UNSELECTED, STATE_SELECTED, STATE_PARTIAL } from '../../selector/Selector';
 
+const sortKey = 'name';
+const sortDir = 1;
+
 function SubscribersTable(props) {
     const {
         subscriberData,
         setSelected
     } = props;
 
-    const subscriberDataArr = useMemo(() => Object.keys(subscriberData).map(k => subscriberData[k]), [subscriberData]);
+    const subscriberDataArr = useMemo(() => {
+        return Object.keys(subscriberData)
+            .map(k => ({ ...subscriberData[k], key: k }))
+            .sort((a, b) => {
+                const upperA = String(a[sortKey]).toLocaleUpperCase();
+                const upperB = String(b[sortKey]).toLocaleUpperCase();
+                return sortDir * upperA.localeCompare(upperB);
+            });
+    }, [subscriberData]);
 
     const headerSelectedState = useMemo(() => {
         let unselected = 0;
@@ -36,15 +47,15 @@ function SubscribersTable(props) {
                 <h3 key={'name'} className='SubscribersTableHeader'>Name</h3>
                 <h3 key={'auth'} className='SubscribersTableHeader'>Auth</h3>
             </div>
-            {Object.keys(subscriberData).map(k => {
-                const { selected, name, phone, auth, muted, group_muted } = subscriberData[k];
+            {subscriberDataArr.map(subscriber => {
+                const { key, selected, name, phone, auth, muted, group_muted } = subscriber;
 
                 const nameStyles = ['SubscribersTableCell'];
                 if (group_muted) nameStyles.push('SubscribersTableCellGroupMuted');
-                return (<div key={k} className='SubscribersTableRow'>
+                return (<div key={key} className='SubscribersTableRow'>
                     <Selector
                         state={selected ? STATE_SELECTED : STATE_UNSELECTED}
-                        stateHandler={newState => setSelected([k], newState === STATE_SELECTED)}
+                        stateHandler={newState => setSelected([key], newState === STATE_SELECTED)}
                     />
                     <p key={'name'} className={nameStyles.join(' ')}>{(muted ? '🔇' : '') + name}</p>
                     <p key={'phone'} className='SubscribersTableCell'>{phone}</p>
