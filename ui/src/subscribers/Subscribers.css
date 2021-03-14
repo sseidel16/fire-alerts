@@ -3,6 +3,19 @@
     flex-direction: column;
 }
 
+.SubscribersTitle {
+    display: flex;
+    flex-direction: row;
+}
+
+.SubscribersTitle > h2 {
+    flex: 1 1 auto;
+}
+
+.SubscribersTitle > select {
+    flex: 0 0 auto;
+}
+
 .SubscribersBanner {
     display: flex;
     flex-direction: row;

@@ -66,6 +66,20 @@ h3 {
     padding-left: 5px;
 }
 
+select {
+    cursor: pointer;
+    font-weight: 450;
+    letter-spacing: 0px;
+    font-size: 22px;
+    color: var(--font-primary-color);
+    background-color: var(--background-primary-color);
+    margin: 15px 0px 5px 0px;
+    border: none;
+    outline: none;
+    border-left: 2px solid var(--accent-primary-color);
+    padding-left: 5px;
+}
+
 button {
     height: 20px;
     padding: 5px 10px;

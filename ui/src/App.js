@@ -51,7 +51,7 @@ function App() {
         <div className='App'>
             <Header {...{ user, signIn, signOut }} />
             {loading ? <Loading message={loading} /> : null}
-            {twilioJwt ? <Subscribers twilioJwt={twilioJwt} /> : null}
+            {twilioJwt ? <Subscribers twilioJwt={twilioJwt} setLoading={setLoading} /> : null}
         </div>
     );
 }

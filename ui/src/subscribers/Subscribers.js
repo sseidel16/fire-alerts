@@ -45,10 +45,18 @@ const bufferPromises = promiseFactories =>
         )
         .toPromise();
 
+const anis = [
+    '+15202010410',
+    '+15202105242',
+];
+
 function Subscribers(props) {
     const {
-        twilioJwt
+        twilioJwt,
+        setLoading,
     } = props;
+
+    const [selectedAni, setSelectedAni] = useState(anis[0]);
 
     // map object from twilio SyncClient
     const [map, setMap] = useState(null);
@@ -59,8 +67,11 @@ function Subscribers(props) {
     // floating window (if any)
     const [floatingWindow, setFloatingWindow] = useState(null);
 
-    const setSubscribers = subscribers => {
-        setSubscriberData(oldSubscriberData => Object.assign({}, oldSubscriberData, subscribers));
+    const setSubscribers = (subscribers, clobber = false) => {
+        setSubscriberData(oldSubscriberData => {
+            if (clobber) return { ...subscribers };
+            else return { ...oldSubscriberData, ...subscribers };
+        });
     };
 
     const removeSubscribers = keys => {
@@ -161,6 +172,28 @@ function Subscribers(props) {
             })
         },
         {
+            name: 'Make Selected admin',
+            actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to make admin', 'Make admin', subscribers => {
+                return bufferPromises(
+                    Object.keys(subscribers).map(k => {
+                        const newSubscriber = Object.assign({}, subscribers[k], { auth: 'admin' });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
+                    })
+                );
+            })
+        },
+        {
+            name: 'Make Selected self',
+            actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to make self', 'Make self', subscribers => {
+                return bufferPromises(
+                    Object.keys(subscribers).map(k => {
+                        const newSubscriber = Object.assign({}, subscribers[k], { auth: 'self' });
+                        return () => setTwilioSubscriber(k, newSubscriber, map).then(setSubscribers);
+                    })
+                );
+            })
+        },
+        {
             name: 'Remove Selected',
             actionHandler: () => confirmedBulkActionHandler('Are you sure you would like to remove', 'Remove', subscribers => {
                 // call remove API
@@ -199,9 +232,10 @@ function Subscribers(props) {
         if (twilioJwt) {
             const syncClient = new SyncClient(twilioJwt);
 
-            syncClient.map('+15202010410').then(setMap, console.error);
+            syncClient.map(selectedAni)
+                .then(setMap, console.error);
         }
-    }, [twilioJwt]);
+    }, [twilioJwt, selectedAni, setLoading]);
 
     // initial Twilio data grab
     useEffect(() => {
@@ -215,7 +249,7 @@ function Subscribers(props) {
                 return paginator.hasNextPage ? paginator.nextPage().then(pageHandler(subscriberObj)) : subscriberObj;
             };
 
-            map.getItems().then(pageHandler({})).then(setSubscribers);
+            map.getItems().then(pageHandler({})).then(subs => setSubscribers(subs, true));
         }
     }, [map]);
 
@@ -223,7 +257,15 @@ function Subscribers(props) {
         <>
             {floatingWindow}
             <div className='SubscribersContainer'>
-                <h2>Subscribers</h2>
+                <div className='SubscribersTitle'>
+                    <h2>Subscribers</h2>
+                    <select
+                        onChange={event => setSelectedAni(event.target.value)}
+                        value={selectedAni}
+                    >
+                        {anis.map(ani => <option value={ani} key={ani}>{ani}</option>)}
+                    </select>
+                </div>
 
                 <div className='SubscribersBanner'>
                     <div className='SubscribersBannerLeft'>
